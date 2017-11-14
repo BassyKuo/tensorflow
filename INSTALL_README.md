@@ -6,17 +6,15 @@
 
 ### Update bazel
 
-   make sure bazel version > 0.5.4
+make sure bazel version > 0.5.4
 
-   ```
-   $ sudo apt-get upgrade bazel
-   $ bazel version
-   Build label: 0.7.0
-   Build target: bazel-out/local-fastbuild/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
-   Build time: Wed Oct 18 14:27:19 2017 (1508336839)
-   Build timestamp: 1508336839
-   Build timestamp as int: 1508336839
-   ```
+	$ sudo apt-get upgrade bazel
+	$ bazel version
+	Build label: 0.7.0
+	Build target: bazel-out/local-fastbuild/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
+	Build time: Wed Oct 18 14:27:19 2017 (1508336839)
+	Build timestamp: 1508336839
+	Build timestamp as int: 1508336839
 
 
 ### Install Tensorflow-1.4
@@ -28,7 +26,7 @@
 
 #### 2. Produce `.tf_configure.bazelrc` & `.bazelrc`
 
-  Run `./configure` with below setting configures:
+Run `./configure` with below setting configures:
 
 	WARNING: Running Bazel server needs to be killed, because the startup options are different.
 	You have bazel 0.7.0 installed.
@@ -119,14 +117,20 @@
 	$ python -c 'import tensorflow as tf; print (tf.__version__)'
 	1.4.0
 
-#### (optional) 7. date your local `libstdc++.so` [one way for anaconda users]
+#### (optional) 7. Update your local `libstdc++.so` [one way for anaconda users]
    If you build tensorflow successfully but FAIL to import it in python with the error message shown as:
     ```
 	ImportError: /home/bass/anaconda3/envs/tf14/bin/../lib/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by /home/bass/anaconda3/envs/tf14/lib/python3.6/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
     ```
-    
+
    then you can re-link your `local_lib_path/libstdc++.so.6` from your system. Just do that:
 ```sh
 $ rm $CONDA_PREFIX/lib/libstdc++.so*
 $ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so $CONDA_PREFIX/lib/libstdc++.so
 ```
+
+#### (optional) 8. Using pre-built `.whl`
+You can also install tensorflow-1.4 via pre-built `tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl` in this folder.
+
+	$ pip install tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
+
