@@ -1,19 +1,14 @@
 # Tensorflow r1.4 installation steps
 
-## Select the tensorflow source version
-
 ### checkout `r1.4`
 
-	```sh
-	$ git checkout r.14
-	```
+    $ git checkout r.14
 
+### Update bazel
 
-## Update bazel
+   make sure bazel version > 0.5.4
 
-### Make sure `bazel version` > 0.5.4
-
-   ```sh
+   ```
    $ sudo apt-get upgrade bazel
    $ bazel version
    Build label: 0.7.0
@@ -24,20 +19,17 @@
    ```
 
 
-## Install Tensorflow-1.4
+### Install Tensorflow-1.4
 
-### Link library path
+#### 1. Link library path
 
-	```sh
-	$ export PATH=$HOME/local/bin:$PATH
-	$ export LD_LIBRARY_PATH=$HOME/local/lib64:$LD_LIBRARY_PATH
-	```
+    $ export PATH=$HOME/local/bin:$PATH
+    $ export LD_LIBRARY_PATH=$HOME/local/lib64:$LD_LIBRARY_PATH
 
-### Produce `.tf_configure.bazelrc` & `.bazelrc`
+#### 2. Produce `.tf_configure.bazelrc` & `.bazelrc`
 
-	Run `./configure` with below setting configures:
+  Run `./configure` with below setting configures:
 
-    ```sh
 	WARNING: Running Bazel server needs to be killed, because the startup options are different.
 	You have bazel 0.7.0 installed.
 	Please specify the location of python. [Default is /home/bass/anaconda3/envs/tf14/bin/python]: 
@@ -107,42 +99,34 @@
 	Please note that MKL on MacOS or windows is still not supported.
 	If you would like to use a local MKL instead of downloading, please set the environment variable "TF_MKL_ROOT" every time before build.
 	Configuration finished
-	```
 
-### Build bazel package
+#### 3. Build bazel package
 
-	```sh
 	$ bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
-	```
 
-### Generate `.whl` in `/tmp/tensorflow_pkg`
 
-	```sh
+#### 4. Generate `.whl` in `/tmp/tensorflow_pkg`
+
 	$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
-	```
 
-### Install tensorflow via pip
+#### 5. Install tensorflow via pip
 
-	```sh
 	$ pip install /tmp/tensorflow_pkg/tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
-	```
 
-### Leave the repo folder & test
+#### 6. Leave the repo folder & test
 
-	```sh
 	$ cd
 	$ python -c 'import tensorflow as tf; print (tf.__version__)'
 	1.4.0
-	```
 
-### (optional) Update your local `libstdc++.so` [one of solutions for anaconda users]
-
-	If you build tensorflow successfully but FAIL to import it in python with the error message shown as:
-	```python
+#### (optional) 7. date your local `libstdc++.so` [one way for anaconda users]
+   If you build tensorflow successfully but FAIL to import it in python with the error message shown as:
+    ```
 	ImportError: /home/bass/anaconda3/envs/tf14/bin/../lib/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by /home/bass/anaconda3/envs/tf14/lib/python3.6/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
-	```
-	then you can re-link your `local_lib_path/libstdc++.so.6` from your system. Just do that:
-	```sh
-	$ rm $CONDA_PREFIX/lib/libstdc++.so*
-	$ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so $CONDA_PREFIX/lib/libstdc++.so
-	```
+    ```
+    
+   then you can re-link your `local_lib_path/libstdc++.so.6` from your system. Just do that:
+```sh
+$ rm $CONDA_PREFIX/lib/libstdc++.so*
+$ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so $CONDA_PREFIX/lib/libstdc++.so
+```
