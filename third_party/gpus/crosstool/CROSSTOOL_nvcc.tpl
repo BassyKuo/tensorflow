@@ -180,6 +180,7 @@ toolchain {
   # TODO(ulfjack): This is wrong on so many levels. Figure out a way to auto-detect the proper
   # setting from the local compiler, and also how to make incremental builds correct.
   cxx_builtin_include_directory: "/"
+  cxx_builtin_include_directory: "/usr/local/cuda/include"
   tool_path { name: "gcov" path: "/usr/bin/gcov" }
   tool_path { name: "ld" path: "/usr/bin/ld" }
   tool_path { name: "nm" path: "/usr/bin/nm" }
