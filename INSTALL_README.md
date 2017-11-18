@@ -243,19 +243,24 @@ Configuration finished
 
 ```
 
-#### 5. Build bazel package
+#### 5. Add builtin link in `third_party/gpus/crosstool/CROSSTOOL_nvcc.tpl`
+
+	$ vim third_party/gpus/crosstool/CROSSTOOL_nvcc.tpl
+	183 +++ cxx_builtin_include_directory: "/usr/local/cuda/include"
+
+#### 6. Build bazel package
 
 	$ bazel build --copt=-march="broadwell" --config=cuda //tensorflow/tools/pip_package:build_pip_package
 	
-#### 6. Generate `.whl` in `/tmp/tensorflow_pkg`
+#### 7. Generate `.whl` in `/tmp/tensorflow_pkg`
 
 	$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
 
-#### 7. Install tensorflow via pip
+#### 8. Install tensorflow via pip
 
 	$ pip install /tmp/tensorflow_pkg/tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
 
-#### 8. Leave the repo folder & test
+#### 9. Leave the repo folder & test
 
 	$ cd
 	$ python -c 'import tensorflow as tf; print (tf.__version__)'
