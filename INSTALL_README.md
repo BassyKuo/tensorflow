@@ -140,7 +140,7 @@ You can also install tensorflow-1.4 via pre-built `tensorflow-1.4.0-cp36-cp36m-l
 
 
 ---
-### (optional) Install Tensorflow-1.4 with GDR, VERBS, XLA, OpenCL
+## (optional) Install Tensorflow-1.4 with GDR, VERBS, XLA, OpenCL
 
 #### 1. Install libibverbs
 
@@ -251,7 +251,7 @@ Configuration finished
 #### 6. Build bazel package
 
 	$ bazel build --copt=-march="broadwell" --config=cuda //tensorflow/tools/pip_package:build_pip_package
-	
+
 #### 7. Generate `.whl` in `/tmp/tensorflow_pkg`
 
 	$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
@@ -265,3 +265,24 @@ Configuration finished
 	$ cd
 	$ python -c 'import tensorflow as tf; print (tf.__version__)'
 	1.4.0
+
+## How to use XLA/JIT?
+
+Turn ON the `global_jit_level` in your Session configure:
+
+```python
+# in your code
+
+config = tf.ConfigProto()
+config.graph_options.optimizer_options.global_jit_level = tf.OptimizerOptions.ON_1
+config.gpu_options.allow_growth=True	# optional if you want to control gpu used-memory dynamic
+
+with tf.Session(config=config) as sess:
+	...
+```
+
+you will get the following message when executing:
+
+	I tensorflow/compiler/xla/service/service.cc:162] XLA service 0x7fbf92814f60 executing computations on platform CUDA. Devices:
+	I tensorflow/compiler/xla/service/service.cc:170]   StreamExecutor device (0): GeForce GTX 1080 Ti, Compute Capability 6.1
+
