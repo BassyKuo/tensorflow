@@ -1,85 +1,267 @@
-<div align="center">
-  <img src="https://www.tensorflow.org/images/tf_logo_transp.png"><br><br>
-</div>
+# Tensorflow r1.4 installation steps
 
------------------
+### checkout `r1.4`
 
-| **`Linux CPU`** | **`Linux GPU`** | **`Mac OS CPU`** | **`Windows CPU`** | **`Android`** |
-|-----------------|---------------------|------------------|-------------------|---------------|
-| [![Build Status](https://ci.tensorflow.org/buildStatus/icon?job=tensorflow-master-cpu)](https://ci.tensorflow.org/job/tensorflow-master-cpu) | [![Build Status](https://ci.tensorflow.org/buildStatus/icon?job=tensorflow-master-linux-gpu)](https://ci.tensorflow.org/job/tensorflow-master-linux-gpu) | [![Build Status](https://ci.tensorflow.org/buildStatus/icon?job=tensorflow-master-mac)](https://ci.tensorflow.org/job/tensorflow-master-mac) | [![Build Status](https://ci.tensorflow.org/buildStatus/icon?job=tensorflow-master-win-cmake-py)](https://ci.tensorflow.org/job/tensorflow-master-win-cmake-py) | [![Build Status](https://ci.tensorflow.org/buildStatus/icon?job=tensorflow-master-android)](https://ci.tensorflow.org/job/tensorflow-master-android) |
+    $ git checkout r.14
 
-**TensorFlow** is an open source software library for numerical computation using
-data flow graphs.  The graph nodes represent mathematical operations, while
-the graph edges represent the multidimensional data arrays (tensors) that flow
-between them.  This flexible architecture lets you deploy computation to one
-or more CPUs or GPUs in a desktop, server, or mobile device without rewriting
-code.  TensorFlow also includes TensorBoard, a data visualization toolkit.
+### (optional) Update Protocol Buffers
 
-TensorFlow was originally developed by researchers and engineers
-working on the Google Brain team within Google's Machine Intelligence Research
-organization for the purposes of conducting machine learning and deep neural
-networks research.  The system is general enough to be applicable in a wide
-variety of other domains, as well.
+Check it: https://github.com/google/protobuf/blob/master/src/README.md
 
-**If you want to contribute to TensorFlow, be sure to review the [contribution
-guidelines](CONTRIBUTING.md). This project adheres to TensorFlow's
-[code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to
-uphold this code.**
+### Update bazel
 
-**We use [GitHub issues](https://github.com/tensorflow/tensorflow/issues) for
-tracking requests and bugs. So please see 
-[TensorFlow Discuss](https://groups.google.com/a/tensorflow.org/forum/#!forum/discuss) for general questions
-and discussion, and please direct specific questions to [Stack Overflow](https://stackoverflow.com/questions/tagged/tensorflow).**
+make sure bazel version > 0.5.4
 
-## Installation
-*See [Installing TensorFlow](https://www.tensorflow.org/get_started/os_setup.html) for instructions on how to install our release binaries or how to build from source.*
-
-People who are a little more adventurous can also try our nightly binaries:
-
-**Nightly pip packages**
-* We are pleased to announce that TensorFlow now offers nightly pip packages
-under the [tf-nightly](https://pypi.python.org/pypi/tf-nightly) project on pypi.
-Simply run `pip install tf-nightly` in a clean environment to install the nightly
-tensorflow  build. We currently only support CPU packages on Linux, Mac, and Windows.
-GPU packages on all platforms will arrive soon!
+	$ sudo apt-get upgrade bazel
+	$ bazel version
+	Build label: 0.7.0
+	Build target: bazel-out/local-fastbuild/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
+	Build time: Wed Oct 18 14:27:19 2017 (1508336839)
+	Build timestamp: 1508336839
+	Build timestamp as int: 1508336839
 
 
-**Individual whl files**
-* Linux CPU-only: [Python 2](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=cpu-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-cp27-none-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=cpu-slave/)) / [Python 3.4](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=cpu-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-cp34-cp34m-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=cpu-slave/)) / [Python 3.5](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3.5,label=cpu-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-cp35-cp35m-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3.5,label=cpu-slave/))
-* Linux GPU: [Python 2](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=gpu-linux/42/artifact/pip_test/whl/tf_nightly_gpu-1.head-cp27-none-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=gpu-linux/)) / [Python 3.4](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=gpu-linux/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly_gpu-1.head-cp34-cp34m-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=gpu-linux/)) / [Python 3.5](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3.5,label=gpu-linux/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly_gpu-1.head-cp35-cp35m-linux_x86_64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-linux/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3.5,label=gpu-linux/))
-* Mac CPU-only: [Python 2](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-mac/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=mac-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-py2-none-any.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-mac/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON2,label=mac-slave/)) / [Python 3](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-mac/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=mac-slave/lastSuccessfulBuild/artifact/pip_test/whl/tf_nightly-1.head-py3-none-any.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-mac/TF_BUILD_IS_OPT=OPT,TF_BUILD_IS_PIP=PIP,TF_BUILD_PYTHON_VERSION=PYTHON3,label=mac-slave/))
-* Windows CPU-only: [Python 3.5 64-bit](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows,PY=35/lastSuccessfulBuild/artifact/cmake_build/tf_python/dist/tf_nightly-1.head-cp35-cp35m-win_amd64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows,PY=35/)) / [Python 3.6 64-bit](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows,PY=36/lastSuccessfulBuild/artifact/cmake_build/tf_python/dist/tf_nightly-1.head-cp36-cp36m-win_amd64.whl) ([build history](http://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows,PY=36/))
-* Windows GPU: [Python 3.5 64-bit](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows-gpu,PY=35/lastSuccessfulBuild/artifact/cmake_build/tf_python/dist/tf_nightly_gpu-1.head-cp35-cp35m-win_amd64.whl) ([build history](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows-gpu,PY=35/)) / [Python 3.6 64-bit](https://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows-gpu,PY=36/lastSuccessfulBuild/artifact/cmake_build/tf_python/dist/tf_nightly_gpu-1.head-cp36-cp36m-win_amd64.whl) ([build history](http://ci.tensorflow.org/view/tf-nightly/job/tf-nightly-windows/M=windows-gpu,PY=36/))
-* Android: [demo APK](https://ci.tensorflow.org/view/Nightly/job/nightly-android/lastSuccessfulBuild/artifact/out/tensorflow_demo.apk), [native libs](https://ci.tensorflow.org/view/Nightly/job/nightly-android/lastSuccessfulBuild/artifact/out/native/)
-([build history](https://ci.tensorflow.org/view/Nightly/job/nightly-android/))
+### Install Tensorflow-1.4
 
-#### *Try your first TensorFlow program*
-```shell
-$ python
+#### 1. Link library path
+
+    $ export PATH=$HOME/local/bin:$PATH
+    $ export LD_LIBRARY_PATH=$HOME/local/lib64:$LD_LIBRARY_PATH
+
+#### 2. Produce `.tf_configure.bazelrc` & `.bazelrc`
+
+Run `./configure` with below setting configures:
+
+	WARNING: Running Bazel server needs to be killed, because the startup options are different.
+	You have bazel 0.7.0 installed.
+	Please specify the location of python. [Default is /home/bass/anaconda3/envs/tf14/bin/python]: 
+
+
+	Found possible Python library paths:
+	/home/bass/anaconda3/envs/tf14/lib/python3.6/site-packages
+	Please input the desired Python library path to use.  Default is [/home/bass/anaconda3/envs/tf14/lib/python3.6/site-packages]
+
+	Do you wish to build TensorFlow with jemalloc as malloc support? [Y/n]: 
+	jemalloc as malloc support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with Google Cloud Platform support? [Y/n]: 
+	Google Cloud Platform support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with Hadoop File System support? [Y/n]: N
+	No Hadoop File System support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with Amazon S3 File System support? [Y/n]: N
+	No Amazon S3 File System support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with XLA JIT support? [y/N]: 
+	No XLA JIT support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with GDR support? [y/N]: 
+	No GDR support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with VERBS support? [y/N]: 
+	No VERBS support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with OpenCL support? [y/N]: 
+	No OpenCL support will be enabled for TensorFlow.
+
+	Do you wish to build TensorFlow with CUDA support? [y/N]: Y
+	CUDA support will be enabled for TensorFlow.
+
+	Please specify the CUDA SDK version you want to use, e.g. 7.0. [Leave empty to default to CUDA 8.0]:        
+
+
+	Please specify the location where CUDA 8.0 toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: 
+
+
+	Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 6.0]: 7
+
+
+	Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:
+
+
+	Please specify a list of comma-separated Cuda compute capabilities you want to build with.
+	You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
+	Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 6.1,6.1]5.2,6.1
+
+
+	Do you want to use clang as CUDA compiler? [y/N]: 
+	nvcc will be used as CUDA compiler.
+
+	Please specify which gcc should be used by nvcc as the host compiler. [Default is /usr/bin/gcc]: 
+
+
+	Do you wish to build TensorFlow with MPI support? [y/N]: 
+	No MPI support will be enabled for TensorFlow.
+
+	Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native]: 
+
+
+	Add "--config=mkl" to your bazel command to build with MKL support.
+	Please note that MKL on MacOS or windows is still not supported.
+	If you would like to use a local MKL instead of downloading, please set the environment variable "TF_MKL_ROOT" every time before build.
+	Configuration finished
+
+#### 3. Build bazel package
+
+	$ bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+
+
+#### 4. Generate `.whl` in `/tmp/tensorflow_pkg`
+
+	$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+
+#### 5. Install tensorflow via pip
+
+	$ pip install /tmp/tensorflow_pkg/tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
+
+#### 6. Leave the repo folder & test
+
+	$ cd
+	$ python -c 'import tensorflow as tf; print (tf.__version__)'
+	1.4.0
+
+#### (optional) 7. Update your local `libstdc++.so` [one way for anaconda users]
+   If you build tensorflow successfully but FAIL to import it in python with the error message shown as:
+    ```
+	ImportError: /home/bass/anaconda3/envs/tf14/bin/../lib/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by /home/bass/anaconda3/envs/tf14/lib/python3.6/site-packages/tensorflow/python/_pywrap_tensorflow_internal.so)
+    ```
+
+   then you can re-link your `local_lib_path/libstdc++.so.6` from your system. Just do that:
+```sh
+$ rm $CONDA_PREFIX/lib/libstdc++.so*
+$ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so $CONDA_PREFIX/lib/libstdc++.so
 ```
-```python
->>> import tensorflow as tf
->>> hello = tf.constant('Hello, TensorFlow!')
->>> sess = tf.Session()
->>> sess.run(hello)
-'Hello, TensorFlow!'
->>> a = tf.constant(10)
->>> b = tf.constant(32)
->>> sess.run(a + b)
-42
->>> sess.close()
+
+#### (optional) 8. Using pre-built `.whl`
+You can also install tensorflow-1.4 via pre-built `tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl` in this folder.
+
+	$ pip install tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
+
+
+---
+### (optional) Install Tensorflow-1.4 with GDR, VERBS, XLA, OpenCL
+
+#### 1. Install libibverbs
+
+	sudo apt-get update && sudo apt-get install libibverbs-dev
+
+#### 2. Download [computecpp SDK](https://www.codeplay.com/products/computesuite/computecpp) manually and unzip. Then rename the folder name to `/usr/local/computecpp`.
+
+#### 3. Installing RDMA cm library from https://github.com/ofiwg/librdmacm
+
+* Follow the README instructions to install the library. (root only)
+
+* Before installing, check the `autoreconf` you have. You can use `apt` to get `autoreconf`.
+```sh
+sudo apt-get install dh-autoreconf
 ```
 
-## For more information
+#### 4. Run `./configure`
 
-* [TensorFlow website](https://www.tensorflow.org)
-* [TensorFlow White Papers](https://www.tensorflow.org/about/bib)
-* [TensorFlow Model Zoo](https://github.com/tensorflow/models)
-* [TensorFlow MOOC on Udacity](https://www.udacity.com/course/deep-learning--ud730)
-* [TensorFlow course at Stanford](https://web.stanford.edu/class/cs20si)
+```sh
+You have bazel 0.7.0 installed.
+Please specify the location of python. [Default is /home/bass/anaconda3/bin/python]: 
 
-Learn more about the TensorFlow community at the [community page of tensorflow.org](https://www.tensorflow.org/community) for a few ways to participate.
 
-## License
+Found possible Python library paths:
+  /home/bass/anaconda3/lib/python3.6/site-packages
+Please input the desired Python library path to use.  Default is [/home/bass/anaconda3/lib/python3.6/site-packages]
 
-[Apache License 2.0](LICENSE)
+Do you wish to build TensorFlow with jemalloc as malloc support? [Y/n]: 
+jemalloc as malloc support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with Google Cloud Platform support? [Y/n]: 
+Google Cloud Platform support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with Hadoop File System support? [Y/n]: N
+No Hadoop File System support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with Amazon S3 File System support? [Y/n]: N
+No Amazon S3 File System support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with XLA JIT support? [y/N]: Y
+XLA JIT support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with GDR support? [y/N]: Y
+GDR support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with VERBS support? [y/N]: Y
+VERBS support will be enabled for TensorFlow.
+
+Do you wish to build TensorFlow with OpenCL SYCL support? [y/N]: Y
+OpenCL SYCL support will be enabled for TensorFlow.
+
+Please specify which C++ compiler should be used as the host C++ compiler. [Default is /usr/bin/g++]: 
+
+
+Please specify which C compiler should be used as the host C compiler. [Default is /usr/bin/gcc]: 
+
+
+Do you wish to build TensorFlow with ComputeCPP support? [Y/n]: 
+ComputeCPP support will be enabled for TensorFlow.
+
+Please specify the location where ComputeCpp for SYCL 1.2 is installed. [Default is /usr/local/computecpp]: 
+
+
+Do you wish to build TensorFlow with CUDA support? [y/N]: Y
+CUDA support will be enabled for TensorFlow.
+
+Please specify the CUDA SDK version you want to use, e.g. 7.0. [Leave empty to default to CUDA 8.0]: 
+
+
+Please specify the location where CUDA 8.0 toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: 
+
+
+Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 6.0]: 7
+
+
+Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:
+
+
+Please specify a list of comma-separated Cuda compute capabilities you want to build with.
+You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
+Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 6.1,6.1]5.2,6.1
+
+
+Do you want to use clang as CUDA compiler? [y/N]: 
+nvcc will be used as CUDA compiler.
+
+Please specify which gcc should be used by nvcc as the host compiler. [Default is /usr/bin/gcc]: 
+
+
+Do you wish to build TensorFlow with MPI support? [y/N]: 
+No MPI support will be enabled for TensorFlow.
+
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native]: 
+
+
+Add "--config=mkl" to your bazel command to build with MKL support.
+Please note that MKL on MacOS or windows is still not supported.
+If you would like to use a local MKL instead of downloading, please set the environment variable "TF_MKL_ROOT" every time before build.
+Configuration finished
+
+```
+
+#### 5. Add builtin link in `third_party/gpus/crosstool/CROSSTOOL_nvcc.tpl`
+
+	$ vim third_party/gpus/crosstool/CROSSTOOL_nvcc.tpl
+	183 +++ cxx_builtin_include_directory: "/usr/local/cuda/include"
+
+#### 6. Build bazel package
+
+	$ bazel build --copt=-march="broadwell" --config=cuda //tensorflow/tools/pip_package:build_pip_package
+
+#### 7. Generate `.whl` in `/tmp/tensorflow_pkg`
+
+	$ bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+
+#### 8. Install tensorflow via pip
+
+	$ pip install /tmp/tensorflow_pkg/tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
+
+#### 9. Leave the repo folder & test
+
+	$ cd
+	$ python -c 'import tensorflow as tf; print (tf.__version__)'
+	1.4.0
