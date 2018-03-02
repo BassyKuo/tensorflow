@@ -1,5 +1,8 @@
 # Tensorflow r1.4 installation steps
 
+Do the following instructions, or download [released wheels](https://github.com/mind/wheels) directly to install.
+
+
 ### checkout `r1.4`
 
     $ git checkout r.14
